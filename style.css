@@ -1,0 +1,562 @@
+/* assets/css/style.css — Updated: increased spacing for Add, search fits, actions at right */
+
+/* Design tokens */
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --shadow-sm: 0 10px 28px rgba(2, 8, 23, 0.55);
+  --shadow-lg: 0 18px 48px rgba(2, 8, 23, 0.7);
+  --font-sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial;
+  --fz-sm: 13px;
+  --fz-md: 15px;
+  --fz-lg: 18px;
+  --bg: #0b1220;
+  --surface: #0f1724;
+  --muted: #9aa7b8;
+  --text: #e6eef8;
+  --accent: #2dd4bf;
+  --accent-contrast: #042c2a;
+  --subtle: rgba(230, 238, 248, 0.04);
+  --motion-fast: 160ms;
+  --ease: cubic-bezier(0.2, 0.9, 0.2, 1);
+  --content-max: 920px;
+
+  /* dynamic shift applied when search opens */
+  --search-offset: 0px;
+}
+
+/* Base */
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+body {
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  padding: 28px;
+  display: flex;
+  justify-content: center;
+  overflow-x: hidden;
+}
+
+/* App */
+.app {
+  width: 100%;
+  max-width: var(--content-max);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.02),
+    rgba(255, 255, 255, 0)
+  );
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg), 0 2px 6px rgba(255, 255, 255, 0.02) inset;
+  padding: 20px;
+  overflow: hidden;
+}
+
+/* Header */
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.header-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: center;
+}
+.title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+  justify-content: center;
+}
+
+/* Logo */
+.logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(
+    180deg,
+    rgba(45, 212, 191, 0.14),
+    rgba(45, 212, 191, 0.06)
+  );
+  box-shadow: 0 8px 26px rgba(45, 212, 191, 0.12), var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: var(--accent-contrast);
+  flex-shrink: 0;
+}
+
+/* Title typography */
+.title-text h1 {
+  margin: 0;
+  font-size: 22px;
+  line-height: 1.1;
+  font-weight: 600;
+}
+.subtitle {
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 4px;
+  font-weight: 300;
+}
+
+/* Controls — three columns, a bit wider gaps so search can fit */
+.controls {
+  display: grid;
+  grid-template-columns: auto minmax(200px, 1fr) auto; /* center column constrained to give search room */
+  gap: 18px; /* increased gap to create breathing room */
+  align-items: center;
+  width: 100%;
+  align-content: center;
+}
+
+/* Center input section — slightly narrower to leave room for search */
+.input-wrap {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  min-width: 260px; /* increased min-width to balance layout */
+  transition: transform var(--motion-fast) var(--ease);
+}
+#todo-form {
+  display: flex;
+  width: 100%;
+}
+
+/* Reduce add-input width by ~10–15% to give search room */
+.input {
+  flex: 1;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.015);
+  color: var(--text);
+  font-size: 14px;
+  transition: all var(--motion-fast) var(--ease);
+  max-width: 65%; /* lowered from 75% to 65% */
+}
+.input:focus {
+  outline: none;
+  box-shadow: 0 8px 24px rgba(2, 12, 14, 0.45);
+  border-color: rgba(45, 212, 191, 0.12);
+}
+
+/* Buttons */
+.btn {
+  padding: 9px 14px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  min-width: 40px;
+  min-height: 40px;
+}
+.btn-primary {
+  background: linear-gradient(180deg, var(--accent), rgba(23, 189, 169, 0.95));
+  color: var(--accent-contrast);
+  box-shadow: 0 10px 28px rgba(16, 43, 44, 0.16);
+  padding: 10px 16px;
+}
+@media (max-width: 640px) {
+  .btn-primary {
+    min-width: 48px;
+    min-height: 44px;
+  }
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+/* Search & sort */
+.search-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  min-width: 44px;
+  margin-top: 2px;
+}
+.search-toggle {
+  padding: 8px;
+  border-radius: 10px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  min-height: 40px;
+}
+.search-input {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.015);
+  color: var(--text);
+  font-size: 14px;
+  flex: 1;
+  max-width: 35%;
+  box-sizing: border-box;
+  transition: all var(--motion-fast) var(--ease);
+  position: relative;
+  opacity: 1;
+  pointer-events: auto;
+  margin-left: 10px;
+}
+
+.search-wrapper.open .search-input {
+  width: auto;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.search-input.visually-hidden {
+  width: auto !important;
+  opacity: 1 !important;
+  padding: 10px 14px !important;
+  margin: 0 0 0 10px !important;
+  border: 1px solid rgba(255, 255, 255, 0.03) !important;
+  pointer-events: auto !important;
+}
+
+/* SHIFT CONTENT WHEN SEARCH OPENS */
+.controls.search-open .input-wrap {
+  transform: translateX(var(--search-offset));
+}
+
+/* Sort */
+.sort-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sort-select {
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--text);
+  font-size: 14px;
+  min-width: 110px;
+}
+
+/* Card & filters */
+.card {
+  margin-top: 18px;
+  background: var(--surface);
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  box-shadow: 0 8px 26px rgba(2, 8, 23, 0.35);
+}
+.filters {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* List & tasks */
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 14px;
+}
+.empty {
+  color: var(--muted);
+  padding: 18px;
+  text-align: center;
+}
+.list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.list-title {
+  margin: 0;
+  font-size: 14px;
+}
+
+/* Task row — keep flex layout but make the actions container stick to the far right */
+.task {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 10px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.01), transparent);
+  border: 1px solid rgba(255, 255, 255, 0.012);
+  min-height: 56px;
+  transition: background var(--motion-fast) var(--ease);
+}
+.task:hover {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.02),
+    rgba(255, 255, 255, 0.01)
+  );
+  border-color: rgba(255, 255, 255, 0.03);
+}
+
+/* selection / toggle / main / badges / acts */
+.select,
+.select-checkbox {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  border: 2px solid rgba(255, 255, 255, 0.06);
+  background: transparent;
+  cursor: pointer;
+  appearance: none;
+  vertical-align: middle;
+}
+.select:checked,
+.select-checkbox:checked {
+  background: var(--accent);
+  border-color: transparent;
+}
+
+.toggle,
+.checkbox {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  border: 2px solid rgba(255, 255, 255, 0.06);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  background: transparent;
+  color: var(--muted);
+}
+.toggle.active,
+.checkbox.checked {
+  background: var(--accent);
+  border-color: transparent;
+  color: var(--accent-contrast);
+}
+
+.task .main {
+  flex: 1 1 auto;
+  min-width: 0;
+} /* allow truncation */
+.badges {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-left: 12px;
+}
+
+/* make actions always stuck to the far right */
+.acts,
+.actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+.btn-icon {
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  min-width: 40px;
+  min-height: 40px;
+}
+.btn-icon:focus {
+  outline: 3px solid rgba(45, 212, 191, 0.18);
+  outline-offset: 2px;
+}
+
+/* badges and priority */
+.badge {
+  padding: 4px 8px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--muted);
+  font-size: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+.badge-priority {
+  font-weight: 700;
+  color: var(--text);
+  background: rgba(45, 212, 191, 0.06);
+  border-color: rgba(45, 212, 191, 0.08);
+}
+
+/* bulk bar, drop placeholder, snackbar ... (unchanged) */
+.bulk-bar,
+.bulk-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-radius: 8px;
+  background: linear-gradient(
+    180deg,
+    rgba(45, 212, 191, 0.04),
+    rgba(45, 212, 191, 0.02)
+  );
+  border: 1px solid rgba(45, 212, 191, 0.08);
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+.drop-placeholder {
+  height: 56px;
+  border: 2px dashed rgba(154, 167, 184, 0.12);
+  border-radius: 8px;
+  background: rgba(230, 238, 248, 0.02);
+}
+.snackbar {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 24px;
+  background: rgba(8, 12, 16, 0.96);
+  color: var(--text);
+  padding: 10px 14px;
+  border-radius: 8px;
+  box-shadow: 0 12px 40px rgba(2, 8, 23, 0.7);
+  z-index: 1000;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.app-footer {
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--muted);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-hint {
+  font-size: 12px;
+  color: var(--muted);
+}
+#flash {
+  position: fixed;
+  left: 12px;
+  bottom: 22px;
+  background: rgba(12, 18, 20, 0.85);
+  padding: 8px;
+  border-radius: 6px;
+  color: var(--text);
+  font-size: 13px;
+}
+
+.edit-inline {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.edit-inline input,
+.edit-inline select {
+  height: 36px;
+  padding: 6px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.01);
+  color: var(--text);
+}
+
+/* Focus outlines */
+:focus {
+  outline-offset: 3px;
+}
+button:focus,
+input:focus {
+  outline: 3px solid rgba(45, 212, 191, 0.18);
+  outline-offset: 2px;
+}
+
+/* Responsive: on mobile we stack and don't translate */
+@media (max-width: 640px) {
+  body {
+    padding: 16px;
+  }
+  .app {
+    padding: 14px;
+  }
+  .controls {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .input-wrap {
+    width: 100%;
+    justify-content: space-between;
+    transform: none !important;
+  }
+  .search-input,
+  .sort-select {
+    width: 100%;
+    position: relative;
+    right: 0;
+    transform: none;
+  }
+  .filter-btn {
+    padding: 8px 10px;
+  }
+  .task {
+    padding: 10px;
+    gap: 8px;
+  }
+  .task .main {
+    min-width: 0;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}

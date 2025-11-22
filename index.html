@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>To-Do List • Professional</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main class="app" role="main">
+      <header class="header" role="banner">
+        <div class="header-top">
+          <div class="title">
+            <!-- Logo: decorative; set aria-hidden=true if purely decorative -->
+            <div
+              class="logo"
+              aria-hidden="true"
+              role="img"
+              aria-label="To-Do Logo"
+            >
+              📝
+            </div>
+            <div class="title-text">
+              <h1>To-Do List</h1>
+              <div class="subtitle">
+                Organize, prioritize, and get things done
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Controls: 3-column layout (search | input+add | sort) -->
+        <div class="controls" role="region" aria-label="Task controls">
+          <!-- Left: search reveal (opens to the left) -->
+          <!-- Left: search reveal (opens to the left) -->
+          <div class="search-wrapper" aria-hidden="false">
+            <button
+              class="search-toggle"
+              type="button"
+              aria-expanded="true"
+              aria-controls="search-input"
+              aria-label="Search tasks"
+              tabindex="-1"
+            >
+              🔍
+            </button>
+            <input
+              id="search-input"
+              class="search-input"
+              type="search"
+              placeholder="Search tasks"
+              aria-label="Search tasks"
+              aria-hidden="false"
+            />
+          </div>
+
+          <!-- Center: add todo input + add button -->
+          <div class="input-wrap">
+            <form id="todo-form" aria-label="Add new task">
+              <input
+                id="todo-input"
+                class="input"
+                name="task"
+                autocomplete="off"
+                placeholder="Add a new task…"
+                aria-label="New task"
+              />
+              <button
+                class="btn btn-primary"
+                type="submit"
+                aria-label="Add task"
+              >
+                Add
+              </button>
+            </form>
+          </div>
+
+          <!-- Right: sort selector -->
+          <div class="sort-wrap">
+            <label for="sort-select" class="visually-hidden">Sort tasks</label>
+            <select
+              id="sort-select"
+              class="sort-select"
+              aria-label="Sort tasks"
+            >
+              <option value="created">Newest</option>
+              <option value="due">Due</option>
+              <option value="priority">Priority</option>
+            </select>
+          </div>
+        </div>
+      </header>
+
+      <section class="card" aria-labelledby="list-title">
+        <div class="list-header">
+          <h2 id="list-title" class="list-title">Tasks</h2>
+          <div class="filters" role="tablist" aria-label="Task filters">
+            <button class="filter-btn active" data-filter="all" type="button">
+              All
+            </button>
+            <button class="filter-btn" data-filter="pending" type="button">
+              Pending
+            </button>
+            <button class="filter-btn" data-filter="completed" type="button">
+              Completed
+            </button>
+          </div>
+        </div>
+
+        <!-- Bulk bar will be injected here when items are selected -->
+        <ul id="todo-list" class="list" aria-live="polite" role="list"></ul>
+
+        <div id="empty-state" class="empty" role="status">
+          No tasks yet — add your first task above.
+        </div>
+      </section>
+
+      <footer class="app-footer">
+        <div>Made with ❤️ — responsive, accessible, and deploy-ready</div>
+        <div class="footer-hint">Press <strong>n</strong> to focus input</div>
+      </footer>
+    </main>
+
+    <!-- Live region for screen reader announcements -->
+    <div
+      id="sr-announcements"
+      aria-live="polite"
+      class="visually-hidden"
+      role="status"
+    ></div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
